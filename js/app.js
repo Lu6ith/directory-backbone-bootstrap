@@ -14,7 +14,7 @@ var directory = {
                     directory[view].prototype.template = _.template(data);
                 }, 'html'));
             } else {
-                alert(view + " not found");
+                alert("Template " + view + " not found !");
             }
         });
 

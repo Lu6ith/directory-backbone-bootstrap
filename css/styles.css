@@ -1,6 +1,7 @@
 body {
     font-family: source-sans-pro, sans-serif;
     font-size: 15px;
+	background: url("../img/squairy_light_@2X.png") scroll center center rgb(74, 74, 74);
     /*padding-top: 60px;*/
     /*padding-bottom: 40px;*/
 }
