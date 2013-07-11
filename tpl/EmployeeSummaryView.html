@@ -15,8 +15,12 @@
             }
             %>
             <tr>
+                <td>Miasto:</td>
+                <td><i class="icon-home"></i> <%= city %></td>
+            </tr>
+            <tr>
                 <td>Telefon:</td>
-                <td><i class="icon-home"></i> <%= officePhone %></td>
+                <td><i class="icon-briefcase"></i> <%= officePhone %></td>
             </tr>
             <tr>
                 <td>Komórka:</td>
@@ -29,6 +33,10 @@
             <tr>
                 <td>Social:</td>
                 <td><i class="icon-retweet"></i> <a href=""><%= twitterId %></a></td>
+            </tr>
+            <tr class="success">
+                <td>Tagi:</td>
+                <td><i class="icon-tags"></i> <span class="label label-info"><%= tags %></span></td>
             </tr>
         </table>
 

@@ -19,7 +19,7 @@ function getEmployees() {
         return getModifiedEmployees($_GET['modifiedSince']);
     }
 
-    $sql = "select e.id, e.firstName, e.lastName, e.title, count(r.id) reportCount " .
+    $sql = "select e.id, e.firstName, e.lastName, e.title, e.tags, count(r.id) reportCount " .
             "from employee e left join employee r on r.managerId = e.id " .
             "group by e.id order by e.lastName, e.firstName";
     try {
@@ -42,7 +42,7 @@ function getEmployees() {
 }
 
 function getEmployee($id) {
-    $sql = "select e.id, e.firstName, e.lastName, e.title, e.officePhone, e.cellPhone, e.email, e.managerId, e.twitterId, CONCAT(m.firstName, ' ', m.lastName) managerName, count(r.id) reportCount " .
+    $sql = "select e.id, e.firstName, e.lastName, e.title, e.city, e.officePhone, e.cellPhone, e.email, e.managerId, e.twitterId, e.tags, CONCAT(m.firstName, ' ', m.lastName) managerName, count(r.id) reportCount " .
             "from employee e " .
             "left join employee r on r.managerId = e.id " .
             "left join employee m on e.managerId = m.id " .
@@ -69,7 +69,7 @@ function getEmployee($id) {
 
 function getReports($id) {
 
-    $sql = "select e.id, e.firstName, e.lastName, e.title, count(r.id) reportCount " .
+    $sql = "select e.id, e.firstName, e.lastName, e.title, e.tags, count(r.id) reportCount " .
             "from employee e left join employee r on r.managerId = e.id " .
             "where e.managerId=:id " .
             "group by e.id order by e.lastName, e.firstName";
@@ -95,7 +95,7 @@ function getReports($id) {
 }
 
 function getEmployeesByName($name) {
-    $sql = "select e.id, e.firstName, e.lastName, e.title, count(r.id) reportCount " .
+    $sql = "select e.id, e.firstName, e.lastName, e.title, e.tags, count(r.id) reportCount " .
             "from employee e left join employee r on r.managerId = e.id " .
             "WHERE UPPER(CONCAT(e.firstName, ' ', e.lastName)) LIKE :name " .
             "group by e.id order by e.lastName, e.firstName";
