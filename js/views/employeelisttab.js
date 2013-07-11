@@ -1,29 +1,32 @@
-directory.EmployeeListView = Backbone.View.extend({
+directory.EmployeeListViewTab = Backbone.View.extend({
 
-    tagName:'ul',
+    tagName:'tbody',
 
-    className:'nav nav-list',
+    //className:'nav nav-list',
 
     initialize:function () {
         var self = this;
+		console.log("ListViewTab");
         this.model.on("reset", this.render, this);
         this.model.on("add", function (employee) {
-            self.$el.append(new directory.EmployeeListItemView({model:employee}).render().el);
+            self.$el.append(new directory.EmployeeListItemViewTab({model:employee}).render().el);
+			console.log('Dodano listItemViewTab !');
         });
     },
 
     render:function () {
         this.$el.empty();
         _.each(this.model.models, function (employee) {
-            this.$el.append(new directory.EmployeeListItemView({model:employee}).render().el);
+            this.$el.append(new directory.EmployeeListItemViewTab({model:employee}).render().el);
+			console.log("ListViewTab render item");
         }, this);
         return this;
     }
 });
 
-directory.EmployeeListItemView = Backbone.View.extend({
+directory.EmployeeListItemViewTab = Backbone.View.extend({
 
-    tagName:"li",
+    tagName:"tr",
 
     initialize:function () {
         this.model.on("change", this.render, this);
