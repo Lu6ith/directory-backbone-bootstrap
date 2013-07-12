@@ -32,3 +32,12 @@ directory.EmployeeCollection = Backbone.Collection.extend({
 //    url:"http://localhost:3000/employees"
 
 });
+
+directory.EmployeeCollectionTab = Backbone.Collection.extend({
+
+    model: directory.Employee,
+
+    url:"/dir/directory-rest-php/employees"
+//    url:"http://localhost:3000/employees"
+
+});

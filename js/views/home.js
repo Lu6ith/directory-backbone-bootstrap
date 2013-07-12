@@ -1,12 +1,13 @@
 directory.HomeView = Backbone.View.extend({
 
     initialize: function () {
-        this.searchResultsTab = new directory.EmployeeCollection();
+        this.searchResultsTab = new directory.EmployeeCollectionTab();
         this.searchresultsViewTab = new directory.EmployeeListViewTab({model: this.searchResultsTab, className: 'table-list'});
     },
 
     events:{
-        "click #showMeBtn":"showMeBtnClick"
+        "click #impDir":"showMeBtnClick",
+		"click #showMeBtn":"showMeBtnClick2"
     },
 
     render:function () {
@@ -17,14 +18,16 @@ directory.HomeView = Backbone.View.extend({
     },
 
     showMeBtnClick:function () {
-        directory.shellView.search();
-        this.searchResultsTab.fetch({reset: true});
+        //directory.shellView.search();
+		var key = $('#searchText').val();
+        this.searchResultsTab.fetch({reset: true, data: {name: key}});
+		//console.log('Kolekcja Tab - ' + JSON.stringify(this.searchResultsTab));
 		var self = this;
-        console.log("showme");
     },
+
+    showMeBtnClick2:function () {
+        directory.shellView.search();
+		var self = this;
+    }	
 	
-	fetchme: function () {
-        this.searchResultsTab.fetch({reset: true});	
-		return this;
-	}
 });

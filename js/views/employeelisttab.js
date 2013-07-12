@@ -1,6 +1,7 @@
 directory.EmployeeListViewTab = Backbone.View.extend({
 
-    tagName:'tbody',
+    tagName:"tbody",
+	//el:$("tbody"),
 
     //className:'nav nav-list',
 
@@ -27,6 +28,7 @@ directory.EmployeeListViewTab = Backbone.View.extend({
 directory.EmployeeListItemViewTab = Backbone.View.extend({
 
     tagName:"tr",
+	//el:$("tr"),
 
     initialize:function () {
         this.model.on("change", this.render, this);
