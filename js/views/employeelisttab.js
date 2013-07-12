@@ -1,4 +1,4 @@
-directory.EmployeeListViewTab = Backbone.View.extend({
+﻿directory.EmployeeListViewTab = Backbone.View.extend({
 
     tagName:"tbody",
 	//el:$("tbody"),
@@ -9,6 +9,7 @@ directory.EmployeeListViewTab = Backbone.View.extend({
         var self = this;
 		console.log("ListViewTab");
         this.model.on("reset", this.render, this);
+		//this.model.on("remove", this.deleteEmployee, this);
         this.model.on("add", function (employee) {
             self.$el.append(new directory.EmployeeListItemViewTab({model:employee}).render().el);
 			console.log('Dodano listItemViewTab !');
@@ -23,13 +24,18 @@ directory.EmployeeListViewTab = Backbone.View.extend({
         }, this);
         return this;
     }
+	
 });
 
 directory.EmployeeListItemViewTab = Backbone.View.extend({
 
     tagName:"tr",
 	//el:$("tr"),
-
+	
+	events: {
+		"click .delete":"deleteEmployee"
+	},
+	
     initialize:function () {
         this.model.on("change", this.render, this);
         this.model.on("destroy", this.close, this);
@@ -42,6 +48,16 @@ directory.EmployeeListItemViewTab = Backbone.View.extend({
         data.id = this.model.id;
         this.$el.html(this.template(data));
         return this;
-    }
+    },
+	
+	deleteEmployee:function () {
+	    var answer = confirm("Czy na pewno chcesz usunąć te osobę ?" + this.model.id);
+		if (answer) {
+	
+			this.model.destroy();
+			this.remove();
+			};
+		return false;	
+	}
 
 });

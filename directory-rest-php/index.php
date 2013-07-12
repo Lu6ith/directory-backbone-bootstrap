@@ -8,6 +8,7 @@ $app = new \Slim\Slim();
 $app->get('/employees', 'getEmployees');
 $app->get('/employees/:id', 'getEmployee');
 $app->get('/employees/:id/reports', 'getReports');
+$app->delete('/employees/:id',	'delEmployee');
 
 $app->run();
 
@@ -143,6 +144,19 @@ function getModifiedEmployees($modifiedSince) {
     } catch(PDOException $e) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
+}
+
+function delEmployee($id) {
+	$sql = "DELETE FROM employee WHERE id=:id";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("id", $id);
+		$stmt->execute();
+		$db = null;
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
 }
 
 function getConnection() {
