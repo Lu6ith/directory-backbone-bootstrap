@@ -1,5 +1,6 @@
 <?php
 require 'Slim/Slim.php';
+use Slim\Slim;
 
 \Slim\Slim::registerAutoloader();
 
@@ -9,6 +10,8 @@ $app->get('/employees', 'getEmployees');
 $app->get('/employees/:id', 'getEmployee');
 $app->get('/employees/:id/reports', 'getReports');
 $app->delete('/employees/:id',	'delEmployee');
+$app->put('/employees/:id', 'updateEmployee');
+$app->post('/employees', 'addEmployee');
 
 $app->run();
 
@@ -20,7 +23,7 @@ function getEmployees() {
         return getModifiedEmployees($_GET['modifiedSince']);
     }
 
-    $sql = "select e.id, e.firstName, e.lastName, e.title, e.tags, count(r.id) reportCount " .
+    $sql = "select e.id, e.firstName, e.lastName, e.title, e.officePhone, e.cellPhone, e.email, e.tags, count(r.id) reportCount " .
             "from employee e left join employee r on r.managerId = e.id " .
             "group by e.id order by e.lastName, e.firstName";
     try {
@@ -96,7 +99,7 @@ function getReports($id) {
 }
 
 function getEmployeesByName($name) {
-    $sql = "select e.id, e.firstName, e.lastName, e.title, e.tags, count(r.id) reportCount " .
+    $sql = "select e.id, e.firstName, e.lastName, e.title, e.officePhone, e.cellPhone, e.email, e.tags, count(r.id) reportCount " .
             "from employee e left join employee r on r.managerId = e.id " .
             "WHERE UPPER(CONCAT(e.firstName, ' ', e.lastName)) LIKE :name " .
             "group by e.id order by e.lastName, e.firstName";
@@ -144,6 +147,64 @@ function getModifiedEmployees($modifiedSince) {
     } catch(PDOException $e) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
+}
+
+function updateEmployee($id) {
+	$request = Slim::getInstance()->request();
+	$body = $request->getBody();
+	$wine = json_decode($body);
+	$sql = "UPDATE employee SET firstName=:firstName, lastName=:lastName, title=:title, tags=:tags WHERE id=:id";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("firstName", $wine->firstName);
+		$stmt->bindParam("lastName", $wine->lastName);
+		$stmt->bindParam("title", $wine->title);
+		$stmt->bindParam("tags", $wine->tags);
+		$stmt->bindParam("id", $id);
+		$stmt->execute();
+		$db = null;
+		//$app->response()->header('Content-Type', 'application/json');
+        // Include support for JSONP requests
+        if (!isset($_GET['callback'])) {
+            echo json_encode($wine);
+        } else {
+            echo $_GET['callback'] . '(' . json_encode($wine) . ');';
+        };
+		//echo json_encode($wine); 
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
+function addEmployee() {
+	//error_log('addContact\n', 3, '/var/tmp/php.log');
+	$request = Slim::getInstance()->request();
+	$wine = json_decode($request->getBody());
+	$sql = "INSERT INTO employee (firstName, lastName, title, officePhone, cellPhone, email, tags) VALUES (:firstName, :lastName, :title, :officePhone, :cellPhone, :email, :tags)";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("firstName", $wine->firstName);
+		$stmt->bindParam("lastName", $wine->lastName);
+		$stmt->bindParam("title", $wine->title);
+		$stmt->bindParam("officePhone", $wine->officePhone);
+		$stmt->bindParam("cellPhone", $wine->cellPhone);
+		$stmt->bindParam("email", $wine->email);
+		$stmt->bindParam("tags", $wine->tags);
+		$stmt->execute();
+		$wine->id = $db->lastInsertId();
+		$db = null;
+		//$app->response()->header('Content-Type', 'application/json');
+        if (!isset($_GET['callback'])) {
+            echo json_encode($wine);
+        } else {
+            echo $_GET['callback'] . '(' . json_encode($wine) . ');';
+        };
+	} catch(PDOException $e) {
+		//error_log($e->getMessage(), 3, '/var/tmp/php.log');
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
 }
 
 function delEmployee($id) {

@@ -1,9 +1,11 @@
-﻿<td><a href='#employees/<%= id %>' data-toggle="tooltip" title="Kliknij po szczegóły"> <%= id %> </a></td>
+﻿<td><a href="#employees/<%= id %>" data-toggle="tooltip" title="Kliknij po szczegóły"> <%= id %> </a></td>
 <td><%= firstName %></td>
 <td><%= lastName %></td>
-<td><%= title %></td>
+<td><i class="icon-envelope"></i> <a href="mailto:<%= email %>"><%= email %></a></td>
+<td><%= officePhone %></td>
+<td><%= cellPhone %></td>
 <td><span class="label label-info"><%= tags %></span></td>
 <td>
-    <a href="#myModal2" role="button" data-toggle="modal"><i class="icon-pencil"></i></a>
+    <a href="#myModal2" role="button" class="editme"><i class="icon-pencil"></i></a>
     <a href="#myModal" role="button" data-toggle="modal" class="delete"><i class="icon-remove"></i></a>
 </td>

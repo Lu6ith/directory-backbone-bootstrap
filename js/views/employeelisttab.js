@@ -32,8 +32,13 @@ directory.EmployeeListItemViewTab = Backbone.View.extend({
     tagName:"tr",
 	//el:$("tr"),
 	
+    //editTemplate: _.template($("#employeeEditTemplate").html()),
+
 	events: {
-		"click .delete":"deleteEmployee"
+		"click a.delete":"deleteEmployee",
+		"click a.editme":"editEmployee",
+        "click button.saveedit": "saveEdits",
+        "click button.canceledit": "cancelEdit"
 	},
 	
     initialize:function () {
@@ -58,6 +63,85 @@ directory.EmployeeListItemViewTab = Backbone.View.extend({
 			this.remove();
 			};
 		return false;	
-	}
+	},
+	
+	editEmployee:function () {
+	    //this.$el.html(this.editTemplate(this.model.toJSON()));
+		console.log('Odpalone editme !');
+		$('.homediv').html('');
+		$('.homediv').append(new directory.EmployeeListItemEditTab({model:this.model}).render().el);
+		$('#myModal2').modal('show');
+		return false;
+	},
 
+    saveEdits: function (e) {
+        e.preventDefault();
+
+        var formData = {},
+            prev = this.model.previousAttributes();
+
+        //get form data
+        $(e.target).closest("form").find(":input").not("button").each(function () {
+            var el = $(this);
+            formData[el.attr("class")] = el.val();
+        });
+		console.log('Po edycji - ' + JSON.stringify(formData));
+		
+        //update model and save to server
+        this.model.set(formData).save();
+
+		//render view
+        this.render();
+
+    },
+
+    cancelEdit: function () {
+		console.log('wcisnieto cancel !');
+        this.render();
+    }
+	
 });
+
+directory.EmployeeListItemEditTab = Backbone.View.extend({
+
+	//className:'homediv',
+	events: {
+        "click button.saveedit": "saveEdits",
+        "click button.updateedit": "saveEdits"
+	},
+	
+    render:function () {
+		console.log('render - ' + JSON.stringify(this.model.attributes));
+        this.$el.html(this.template(this.model.attributes));
+        return this;
+    },
+
+    saveEdits: function (e) {
+        e.preventDefault();
+
+        var formData = {},
+            prev = this.model.previousAttributes();
+
+        //get form data
+        $(e.target).closest("form").find(":input").not("button").each(function () {
+            var el = $(this);
+            formData[el.attr("id")] = el.val();
+			//console.log('Po edycji - ' + [el.attr("id")] + formData[el.attr("id")]);
+        });
+		
+        //update model and save to server
+		//this.model.unset("reportCount");
+        this.model.set(formData).save();
+
+		//render view
+        this.render();
+
+    },
+
+    cancelEdit: function () {
+		console.log('wcisnieto cancel !');
+        //this.render();
+		return false;
+    }
+	
+});	

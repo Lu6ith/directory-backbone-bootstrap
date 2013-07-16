@@ -43,15 +43,16 @@ directory.Router = Backbone.Router.extend({
 
     home: function () {
         // Since the home view never changes, we instantiate it and render it only once
-        if (!directory.homelView) {
+        //if (!directory.homelView) {
             directory.homelView = new directory.HomeView();
             directory.homelView.render();
-        } else {
-            console.log('reusing home view');
-            directory.homelView.delegateEvents(); // delegate events when the view is recycled
-        }
+        //} else {
+        //    console.log('reusing home view');
+        //    directory.homelView.delegateEvents(); // delegate events when the view is recycled
+        //}
         this.$content.html(directory.homelView.el);
         directory.shellView.selectMenuItem('home-menu');
+		directory.homelView.showMeBtnClick();
     },
 
     contact: function () {
@@ -80,7 +81,7 @@ directory.Router = Backbone.Router.extend({
 });
 
 $(document).on("ready", function () {
-    directory.loadTemplates(["HomeView", "ContactView", "ShellView", "EmployeeView", "EmployeeSummaryView", "EmployeeListItemView", "EmployeeListItemViewTab"],
+    directory.loadTemplates(["HomeView", "ContactView", "ShellView", "EmployeeView", "EmployeeSummaryView", "EmployeeListItemView", "EmployeeListItemViewTab", "EmployeeListItemEditTab"],
         function () {
             directory.router = new directory.Router();
             Backbone.history.start();
