@@ -1,5 +1,5 @@
 directory.ShellView = Backbone.View.extend({
-
+	
     initialize: function () {
         this.searchResults = new directory.EmployeeCollection();
         this.searchresultsView = new directory.EmployeeListView({model: this.searchResults, className: 'dropdown-menu'});
@@ -37,6 +37,6 @@ directory.ShellView = Backbone.View.extend({
         if (menuItem) {
             $('.' + menuItem).addClass('active');
         }
-    }
-
+    },
+	
 });

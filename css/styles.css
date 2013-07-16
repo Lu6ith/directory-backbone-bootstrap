@@ -20,3 +20,7 @@ body {
 .no-reports {
     display: none;
 }
+
+.form-horizontal .control-group {
+    margin-bottom: 8px;
+}

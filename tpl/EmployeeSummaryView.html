@@ -1,4 +1,4 @@
-<p><img src="pics/<%= firstName %>_<%= lastName %>.jpg" width="160" height="160"/></p>
+<p><img src="pics/<%= firstName %>_<%= lastName %>.jpg"  onerror="this.src='pics/James_King.jpg'" width="160" height="160"/></p>
 <h3><%= firstName %> <%= lastName %></h3>
 <h4><%= title %></h4>
 <br>
@@ -36,7 +36,15 @@
             </tr>
             <tr class="success">
                 <td>Tagi:</td>
-                <td><i class="icon-tags"></i> <span class="label label-info"><%= tags %></span></td>
+				<% if(tags == "telemechanika") { %>
+					<td><i class="icon-tags"></i><span class="label label-info"><%= tags %></span></td>
+				<% } else { %>
+				<% if(tags == "Farmy Wiatrowe") { %>
+					<td><i class="icon-tags"></i><span class="label label-warning"><%= tags %></span></td>
+				<% } else { %>
+					<td><i class="icon-tags"></i><span class="label label-success"><%= tags %></span></td>
+				<% }} %>
+
             </tr>
         </table>
 
