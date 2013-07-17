@@ -17,9 +17,27 @@
 		<br/>
 		<h3>Lista kontaktowa </h3>
 		<div class="btn-toolbar">
-			<button id="newemp" class="btn btn-primary">Nowy kont.</button>
-			<button id="impDir" class="btn">Import</button>
-			<button class="btn">Export</button>
+			<button id="newemp" class="btn btn-primary">Nowy kontakt</button>
+			<button id="impDir" class="btn">Wczytaj</button>
+			<button id="drukemp" class="btn">Drukuj</button>
+			<div class="btn-group dropdown">
+				<a class="btn dropdown-toggle btn-info" data-toggle="dropdown" href="#">
+					Szukaj dla Tagów
+					<span class="caret"></span>
+				</a>
+				<ul id="tagul" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+				<!-- dropdown menu links -->
+					<!-- <li><a tabindex="-1" href="#">telemechanika</a></li>
+					<li><a tabindex="-1" href="#">windex</a></li>
+					<li><a tabindex="-1" href="#">farmy wiatrowe</a></li> -->
+				</ul>
+			</div>
+			<!-- <form class="form-search">
+				<div class="input-append">
+					<input type="text" class="span2 search-query">
+					<button type="submit" class="btn">Search</button>
+				</div>
+			</form> -->
 		</div>
 		<div class="well">
 			<table class="tab-search table table-hover table-bordered table-striped table-condensed">
@@ -163,10 +181,10 @@
 						</div> -->				
 				</div>
 		  </div>
-		  <div class="modal-footer">
+		  <!-- <div class="modal-footer">
 			<button class="btn canceledit" data-dismiss="modal" aria-hidden="true">Cofnij</button>
 			<button class="btn btn-danger saveedit" data-dismiss="modal">Potwierdź</button>
-		  </div> 
+		  </div> --> 
 		</div>
 
 	</div>

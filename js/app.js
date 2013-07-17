@@ -53,6 +53,7 @@ directory.Router = Backbone.Router.extend({
         this.$content.html(directory.homelView.el);
         directory.shellView.selectMenuItem('home-menu');
 		directory.homelView.showMeBtnClick();
+		//directory.homelView.createSelect();
     },
 
     contact: function () {
