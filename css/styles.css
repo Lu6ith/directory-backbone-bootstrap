@@ -24,3 +24,14 @@ body {
 .form-horizontal .control-group {
     margin-bottom: 8px;
 }
+
+.table th {
+  font-weight: bold;
+  background-color: #E9E4CD;
+}
+
+.scrollme {
+height: 350px;
+overflow: auto;
+/*position: relative;*/
+}

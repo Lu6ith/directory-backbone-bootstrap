@@ -1,17 +1,24 @@
 ﻿<td><a href="#employees/<%= id %>" data-toggle="tooltip" title="Kliknij po szczegóły"> <%= id %> </a></td>
-<td><%= firstName %></td>
 <td><%= lastName %></td>
+<td><%= firstName %></td>
+<td><strong><%= department %></strong></td>
 <td><i class="icon-envelope"></i> <a href="mailto:<%= email %>"><%= email %></a></td>
 <td><%= officePhone %></td>
 <td><%= cellPhone %></td>
-<% if(tags == "telemechanika") { %>
+<% if(tags.substring(0,8) == "telemech") { %>
 	<td><span class="label label-info"><%= tags %></span></td>
 <% } else { %>
-<% if(tags == "Farmy Wiatrowe") { %>
+<% if(tags.substring(0,8) == "Farmy W.") { %>
 	<td><span class="label label-warning"><%= tags %></span></td>
 <% } else { %>
-	<td><span class="label label-success"><%= tags %></span></td>
-<% }} %>
+	<% if(tags.substring(0,5) == "Dyste") { %>
+		<td><span class="label label-success"><%= tags %></span></td>
+	<% } else { %>
+		<% if(tags.substring(0,3) == "ZDR") { %>
+			<td><span class="label label-important"><%= tags %></span></td>
+		<% } else { %>
+			<td><span class="label"><%= tags %></span></td>
+<% }}}} %>
 <td>
     <a href="#myModal2" role="button" class="editme"><i class="icon-pencil"></i></a>
     <a href="#myModal" role="button" data-toggle="modal" class="delete"><i class="icon-remove"></i></a>

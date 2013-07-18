@@ -15,6 +15,10 @@
             }
             %>
             <tr>
+                <td>Firma:</td>
+                <td><i class="icon-certificate"></i> <%= department %></td>
+            </tr>
+            <tr>
                 <td>Miasto:</td>
                 <td><i class="icon-home"></i> <%= city %></td>
             </tr>
@@ -36,14 +40,20 @@
             </tr>
             <tr class="success">
                 <td>Tagi:</td>
-				<% if(tags == "telemechanika") { %>
-					<td><i class="icon-tags"></i><span class="label label-info"><%= tags %></span></td>
-				<% } else { %>
-				<% if(tags == "Farmy Wiatrowe") { %>
-					<td><i class="icon-tags"></i><span class="label label-warning"><%= tags %></span></td>
-				<% } else { %>
-					<td><i class="icon-tags"></i><span class="label label-success"><%= tags %></span></td>
-				<% }} %>
+<% if(tags.substring(0,8) == "telemech") { %>
+	<td><span class="label label-info"><%= tags %></span></td>
+<% } else { %>
+<% if(tags.substring(0,8) == "Farmy W.") { %>
+	<td><span class="label label-warning"><%= tags %></span></td>
+<% } else { %>
+	<% if(tags.substring(0,5) == "Dyste") { %>
+		<td><span class="label label-success"><%= tags %></span></td>
+	<% } else { %>
+		<% if(tags.substring(0,3) == "ZDR") { %>
+			<td><span class="label label-important"><%= tags %></span></td>
+		<% } else { %>
+			<td><span class="label"><%= tags %></span></td>
+<% }}}} %>
 
             </tr>
         </table>
