@@ -12,7 +12,7 @@ directory.ShellView = Backbone.View.extend({
     },
 
     events: {
-        "keyup .search-query": "search",
+        //"keyup .search-query": "search",
         "keypress .search-query": "onkeypress"
     },
 
@@ -24,11 +24,13 @@ directory.ShellView = Backbone.View.extend({
             $('.dropdown').addClass('open');
 			//console.log('Kolekcja - ' + JSON.stringify(self.searchResults));
         });
+		$('#searchText').val('');
     },
 
     onkeypress: function (event) {
         if (event.keyCode === 13) { // enter key pressed
             event.preventDefault();
+			this.search();
         }
     },
 

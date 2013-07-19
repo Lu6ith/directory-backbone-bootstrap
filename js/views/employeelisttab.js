@@ -113,6 +113,7 @@ directory.EmployeeListItemEditTab = Backbone.View.extend({
 		
 		//render view
         this.render();
+		directory.homelView.showMeBtnClick();		
 		$('#myModal2').modal('hide');
 
     },
@@ -136,8 +137,8 @@ directory.EmployeeListItemEditTab = Backbone.View.extend({
 		
 		//render view
         this.render();
+		//directory.homelView.showMeBtnClick();
 		$('#myModal2').modal('hide');
-
     },
 
     cancelEdit: function () {

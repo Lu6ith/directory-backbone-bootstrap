@@ -35,3 +35,19 @@ height: 350px;
 overflow: auto;
 /*position: relative;*/
 }
+
+.modal-body {
+max-height: 490px;
+}
+
+.label-color1 {
+	background-color: #0080FF;
+}
+
+.label-color2{
+	background-color: #408080;
+}
+
+.label-color3 {
+	background-color: #C68F20;
+}

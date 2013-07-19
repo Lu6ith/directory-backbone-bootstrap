@@ -27,7 +27,7 @@ function getEmployees() {
 		}
     }
 
-    $sql = "select e.id, e.firstName, e.lastName, e.department, e.title, e.officePhone, e.cellPhone, e.email, e.tags, count(r.id) reportCount " .
+    $sql = "select e.id, e.firstName, e.lastName, e.department, e.city, e.title, e.officePhone, e.cellPhone, e.email, e.tags, count(r.id) reportCount " .
             "from employee e left join employee r on r.managerId = e.id " .
             "group by e.id order by e.tags";
     try {
@@ -103,7 +103,7 @@ function getReports($id) {
 }
 
 function getEmployeesByName($name) {
-    $sql = "select e.id, e.firstName, e.lastName, e.department, e.title, e.officePhone, e.cellPhone, e.email, e.tags, count(r.id) reportCount " .
+    $sql = "select e.id, e.firstName, e.lastName, e.department, e.city,  e.title, e.officePhone, e.cellPhone, e.email, e.tags, count(r.id) reportCount " .
             "from employee e left join employee r on r.managerId = e.id " .
             "WHERE UPPER(CONCAT(e.firstName, ' ', e.lastName)) LIKE :name " .
             "group by e.id order by e.tags";
@@ -129,7 +129,7 @@ function getEmployeesByName($name) {
 }
 
 function getEmployeesByTags($tags) {
-    $sql = "select e.id, e.firstName, e.lastName, e.department, e.title, e.officePhone, e.cellPhone, e.email, e.tags, count(r.id) reportCount " .
+    $sql = "select e.id, e.firstName, e.lastName, e.department, e.city, e.title, e.officePhone, e.cellPhone, e.email, e.tags, count(r.id) reportCount " .
             "from employee e left join employee r on r.managerId = e.id " .
             "WHERE UPPER(e.tags) LIKE :tags " .
             "group by e.id order by e.lastName, e.firstName";
@@ -183,7 +183,7 @@ function updateEmployee($id) {
 	$request = Slim::getInstance()->request();
 	$body = $request->getBody();
 	$wine = json_decode($body);
-	$sql = "UPDATE employee SET firstName=:firstName, lastName=:lastName, title=:title, department=:department, officePhone=:officePhone, cellPhone=:cellPhone, email=:email, tags=:tags WHERE id=:id";
+	$sql = "UPDATE employee SET firstName=:firstName, lastName=:lastName, title=:title, city=:city, department=:department, officePhone=:officePhone, cellPhone=:cellPhone, email=:email, tags=:tags WHERE id=:id";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);  
@@ -191,6 +191,7 @@ function updateEmployee($id) {
 		$stmt->bindParam("lastName", $wine->lastName);
 		$stmt->bindParam("title", $wine->title);
 		$stmt->bindParam("department", $wine->department);
+		$stmt->bindParam("city", $wine->city);
 		$stmt->bindParam("officePhone", $wine->officePhone);
 		$stmt->bindParam("cellPhone", $wine->cellPhone);
 		$stmt->bindParam("email", $wine->email);
@@ -215,7 +216,7 @@ function addEmployee() {
 	//error_log('addContact\n', 3, '/var/tmp/php.log');
 	$request = Slim::getInstance()->request();
 	$wine = json_decode($request->getBody());
-	$sql = "INSERT INTO employee (firstName, lastName, title, department, officePhone, cellPhone, email, tags) VALUES (:firstName, :lastName, :title, :department, :officePhone, :cellPhone, :email, :tags)";
+	$sql = "INSERT INTO employee (firstName, lastName, title, department, city, officePhone, cellPhone, email, tags) VALUES (:firstName, :lastName, :title, :department, :city, :officePhone, :cellPhone, :email, :tags)";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);  
@@ -223,6 +224,7 @@ function addEmployee() {
 		$stmt->bindParam("lastName", $wine->lastName);
 		$stmt->bindParam("title", $wine->title);
 		$stmt->bindParam("department", $wine->department);
+		$stmt->bindParam("city", $wine->city);
 		$stmt->bindParam("officePhone", $wine->officePhone);
 		$stmt->bindParam("cellPhone", $wine->cellPhone);
 		$stmt->bindParam("email", $wine->email);

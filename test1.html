@@ -1,0 +1,79 @@
+﻿<script>
+//============================================================
+// Register Namespace
+//------------------------------------------------------------
+var Shape = Shape||{};
+var Tags = Tags||{};
+
+//============================================================
+// Constructor - MUST BE AT TOP OF FILE
+//------------------------------------------------------------
+Shape.Rectangle = function Shape_Rectangle(width, height, color){
+    this.Width = width;
+    this.Height = height;
+    this.Color = color;
+}
+
+Tags.Color = function Tags_Color(name, color){
+	this.Name = name;
+	this.Color = color;
+}
+
+//============================================================
+// Member Functions & Variables
+//------------------------------------------------------------
+Shape.Rectangle.prototype = {
+  Width: null
+ ,Height: null
+ ,Color: null
+ ,Draw: function Shape_Rectangle_Draw(canvasId, x, y){
+    var canvas = document.getElementById(canvasId);
+    var context = canvas.getContext("2d");
+    context.fillStyle = this.Color;
+    context.fillRect(x, y, this.Width, this.Height);
+ }
+}
+
+Tags.Color.prototype = {
+	Name: "tag",
+	Color: "label-info",
+	Show: function Tags_Color_Show() {
+		var item = "<td><span class='";
+		return item + this.Color + "'>" + this.Name + "</span></td>";
+	}
+}
+
+//============================================================
+// Static Variables
+//------------------------------------------------------------
+Shape.Rectangle.Sides = 4;
+Tags.Color.Items = 10;
+
+//============================================================
+// Static Functions
+//------------------------------------------------------------
+Shape.Rectangle.CreateSmallBlue = function Shape_Rectangle_CreateSmallBlue(){
+    return new Shape.Rectangle(5,8,'#0000ff');
+}
+Shape.Rectangle.CreateBigRed = function Shape_Rectangle_CreateBigRed(){
+    return new Shape.Rectangle(50,25,'#ff0000');
+}
+</script>
+<canvas id="painting" width="200" height="200"></canvas>
+<script>
+//alert("A rectangle has "+Shape.Rectangle.Sides+" sides.");
+alert("Teraz mamy " + Tags.Color.Items + " kolorów");
+
+var r1 = new Shape.Rectangle(16, 12, "#aa22cc");
+r1.Draw("painting",0, 20);
+
+var r2 = Shape.Rectangle.CreateSmallBlue();
+r2.Draw("painting", 0, 0);
+
+Shape.Rectangle.CreateBigRed().Draw("painting", 10, 100);
+ 
+var tg1 = new Tags.Color("Dyster ", "label-col1");
+console.log("Nowy Tag: " + tg1.Name + " - " + tg1.Color);
+console.log(tg1.Show());
+
+</script>

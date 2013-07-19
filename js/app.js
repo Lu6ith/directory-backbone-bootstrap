@@ -3,6 +3,8 @@ var directory = {
     views: {},
 
     models: {},
+	
+	tagcolors: {},
 
     loadTemplates: function(views, callback) {
 
