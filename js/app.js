@@ -4,7 +4,16 @@ var directory = {
 
     models: {},
 	
-	tagcolors: {},
+	tagcolors: {
+		tag1: "label-warning",
+		tag2: "label-info",
+		tag3: "label-important",
+		tag4: "label-success",
+		tag5: "label-inverse",
+		tag6: "label-color1",
+		tag7: "label-color2",
+		tag8: "label-color3"
+	},
 
     loadTemplates: function(views, callback) {
 
@@ -89,4 +98,12 @@ $(document).on("ready", function () {
             directory.router = new directory.Router();
             Backbone.history.start();
         });
+		
+	$('#myTabKont a:first').tab('show');
+			
+	$('#myTabKont a[href="#dlist"]').click(function (e) {
+		e.preventDefault();
+		$(this).tab('show');
+	});
+
 });

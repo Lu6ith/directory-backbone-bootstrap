@@ -18,10 +18,13 @@
 
     render:function () {
         this.$el.empty();
+		//var tagstab = directory.homelView.getUniqTags(),
+		//	licz = 0;
         _.each(this.model.models, function (employee) {
             this.$el.append(new directory.EmployeeListItemViewTab({model:employee}).render().el);
-			console.log("ListViewTab render item");
+			//console.log("ListViewTab render item - " + tagstab[licz]);
         }, this);
+		//console.log('Tablica tagów - ' + directory.tagcolors.tag5 + ' -- ' + directory.homelView.getUniqTags().length)		
         return this;
     }
 	
@@ -30,10 +33,9 @@
 directory.EmployeeListItemViewTab = Backbone.View.extend({
 
     tagName:"tr",
-	//el:$("tr"),
-	
-    //editTemplate: _.template($("#employeeEditTemplate").html()),
 
+	tagColor: "label",
+	
 	events: {
 		"click a.delete":"deleteEmployee",
 		"click a.editme":"editEmployee"

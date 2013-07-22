@@ -14,8 +14,16 @@
 
 <div class="row-fluid">
 	<div id="emtable" class="span12">
-		<br/>
-		<h3>Lista kontaktowa </h3>
+		<ul class="nav nav-pills" id="myTabKont">
+			<li class="active"><a href="#klist" data-toggle="tab">Lista kontaktów</a></li>
+			<li><a href="#dlist" data-toggle="tab">Lista dyżurów</a></li>
+			<!-- <li><a href="#messages">Messages</a></li>
+			<li><a href="#settings">Settings</a></li> -->
+		</ul>
+		
+		<div class="tab-content">
+		<div class="tab-pane active" id="klist">
+		<h3>Lista kontaktów </h3>
 		<div class="btn-toolbar">
 			<button id="newemp" class="btn btn-primary"><i class="cus-user_add"></i>Nowy kontakt</button>
 			<button id="impDir" class="btn"><i class="cus-database_add"></i>Wczytaj</button>
@@ -28,17 +36,8 @@
 				<ul id="tagul" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 					<li><a tabindex="-1" href="#">Naciśnij 'Wczytaj' ...</a></li>
 				<!-- dropdown menu links -->
-					<!-- <li><a tabindex="-1" href="#">telemechanika</a></li>
-					<li><a tabindex="-1" href="#">windex</a></li>
-					<li><a tabindex="-1" href="#">farmy wiatrowe</a></li> -->
 				</ul>
 			</div>
-			<!-- <form class="form-search">
-				<div class="input-append">
-					<input type="text" class="span2 search-query">
-					<button type="submit" class="btn">Search</button>
-				</div>
-			</form> -->
 		</div>
 		<div class="well">
 			<table class="tab-search table table-hover table-bordered table-striped table-condensed">
@@ -58,8 +57,7 @@
 <!-- 			    <tbody>
 				</tbody> -->
 			</table>
-		</div>
-		<div class="pagination">
+		  <div class="pagination">
 			<ul>
 				<li><a href="#">&laquo;</a></li>
 				<li><a href="#">1</a></li>
@@ -68,7 +66,60 @@
 				<li><a href="#">4</a></li>
 				<li><a href="#">&raquo;</a></li>
 			</ul>
+		  </div>
 		</div>
+		</div>
+		
+		<div class="tab-pane" id="dlist">
+		<h3>Lista dyżurów </h3>
+		<div class="btn-toolbar">
+			<button id="newempd" class="btn btn-primary"><i class="cus-user_add"></i>Nowy dyżur</button>
+			<button id="impDird" class="btn"><i class="cus-database_add"></i>Wczytaj</button>
+			<button id="drukempd" class="btn disabled"><i class="cus-printer"></i>Drukuj</button>
+			<div class="btn-group dropdown">
+				<a class="btn dropdown-toggle btn-info" data-toggle="dropdown" href="#">
+					<i class="cus-tag_yellow"></i>Szukaj dla Grupy
+					<span class="caret"></span>
+				</a>
+				<ul id="taguld" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+					<li><a tabindex="-1" href="#">Naciśnij 'Wczytaj' ...</a></li>
+				<!-- dropdown menu links -->
+				</ul>
+			</div>
+		</div>
+		<div class="well">
+			<table class="tab-searchd table table-hover table-bordered table-striped table-condensed">
+				<thead class="info">
+				  <tr class="blue">
+					<th>#</th>
+					<th>Nazwisko</th>
+					<th>Imię</th>
+					<th>Firma</th>
+					<th>Email</th>
+					<th>Tel. stac.</th>
+					<th>Tel. kom.</th>
+					<th>Grupa</th>
+					<th style="width: 36px;"></th>
+				  </tr>
+				</thead>
+<!-- 			    <tbody>
+				</tbody> -->
+			</table>
+		  <div class="pagination">
+			<ul>
+				<li><a href="#">&laquo;</a></li>
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li><a href="#">4</a></li>
+				<li><a href="#">&raquo;</a></li>
+			</ul>
+		  </div>
+		</div>
+		</div>
+		
+		</div>
+	
 		<div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -107,14 +158,13 @@
 						</form>
 						</div> -->				
 				</div>
-		  </div>
+		    </div>
 		  <!-- <div class="modal-footer">
 			<button class="btn canceledit" data-dismiss="modal" aria-hidden="true">Cofnij</button>
 			<button class="btn btn-danger saveedit" data-dismiss="modal">Potwierdź</button>
 		  </div> -->
+		  </div>
 		</div>
-
-	</div>
 
 	<div class="modal hide fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-header">

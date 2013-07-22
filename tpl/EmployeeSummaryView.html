@@ -52,8 +52,14 @@
 		<% if(tags.substring(0,3) == "ZDR") { %>
 			<td><span class="label label-important"><%= tags %></span></td>
 		<% } else { %>
-			<td><span class="label"><%= tags %></span></td>
-<% }}}} %>
+			<% if(tags.substring(0,6) == "Syndis") { %>
+				<td><span class="label label-color3"><%= tags %></span></td>
+			<% } else { %>
+				<% if(tags.substring(0,6) == "Windex") { %>
+					<td><span class="label label-color1"><%= tags %></span></td>
+				<% } else { %>
+					<td><span class="label"><%= tags %></span></td>
+<% }}}}}} %>
 
             </tr>
         </table>

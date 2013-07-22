@@ -1,4 +1,4 @@
-directory.HomeView = Backbone.View.extend({
+﻿directory.HomeView = Backbone.View.extend({
 
     initialize: function () {
         this.searchResultsTab = new directory.EmployeeCollectionTab();
