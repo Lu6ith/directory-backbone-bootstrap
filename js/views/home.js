@@ -2,15 +2,20 @@
 
     initialize: function () {
         this.searchResultsTab = new directory.EmployeeCollectionTab();
+        this.searchResultsTabT = new directory.TelekomCollection();
+
         this.searchresultsViewTab = new directory.EmployeeListViewTab({model: this.searchResultsTab, className: 'table-list'});
+        this.searchresultsViewTabT = new directory.TelekomListViewTab({model: this.searchResultsTabT, className: 'table-list'});
 		this.on("change:filterType", this.filterByTag, this);
 		//this.searchResultsTab.on("reset", this.render, this);
     },
 
     events:{
         "click #impDir":"showMeBtnClick",
+        "click #impDird":"showMeBtnClickT",
 		"click #showMeBtn":"showMeBtnClick2",
 		"click #newemp":"createItem",
+		"click #newempd":"createItemT",
 		"click button.newedit":"saveItem",
 		"click button.canceledit": "cancelEdit",
 		"click #tagul li a": "setFilter"
@@ -19,6 +24,7 @@
     render:function () {
         this.$el.html(this.template());
         $('.tab-search', this.el).append(this.searchresultsViewTab.render().el);
+        $('.tab-searchd', this.el).append(this.searchresultsViewTabT.render().el);
 		//console.log("render");		
 		return this;
     },
@@ -39,6 +45,26 @@
 			}
 		});
 		console.log('Kolekcja Tab - ' + JSON.stringify(this.getUniqTags()));
+		var self = this;
+		//this.createSelect();
+    },
+
+    showMeBtnClickT:function () {
+		//var key = $('#searchText').val();
+        this.searchResultsTabT.fetch({
+			reset: true, 
+			//data: {name: key},
+			success: function() {
+				//alert("No error!");
+				console.log('Success Telekom');
+				//this.createSelect();
+				//directory.homelView.createSelect();
+			},
+			error: function() {
+				alert("error!");
+			}
+		});
+		//console.log('Kolekcja Tab - ' + JSON.stringify(this.getUniqTags()));
 		var self = this;
 		//this.createSelect();
     },
@@ -100,6 +126,14 @@
 		$('#myModal3').modal('show');
 	},
 	
+	createItemT: function () {
+		//$('.homediv').html('');
+		$('#department').val('PSE Centrum').attr('disabled', 'disabled');
+		$('#city').val('Warszawa').attr('disabled', 'disabled');
+		$('#tags').val('PSEC - ZT').attr('disabled', 'disabled');
+		$('#myModal3').modal('show');
+	},
+	
 	saveItem: function (e) {
         e.preventDefault();
 
@@ -121,6 +155,7 @@
 		//this.render();
 		//this.showMeBtnClick();
 		directory.homelView.showMeBtnClick();
+		directory.homelView.showMeBtnClickT();
 	},
 	
     cancelEdit: function () {

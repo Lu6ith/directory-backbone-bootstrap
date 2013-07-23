@@ -64,6 +64,7 @@ directory.Router = Backbone.Router.extend({
         this.$content.html(directory.homelView.el);
         directory.shellView.selectMenuItem('home-menu');
 		directory.homelView.showMeBtnClick();
+		directory.homelView.showMeBtnClickT();
 		//directory.homelView.createSelect();
     },
 
@@ -93,7 +94,7 @@ directory.Router = Backbone.Router.extend({
 });
 
 $(document).on("ready", function () {
-    directory.loadTemplates(["HomeView", "ContactView", "ShellView", "EmployeeView", "EmployeeSummaryView", "EmployeeListItemView", "EmployeeListItemViewTab", "EmployeeListItemEditTab"],
+    directory.loadTemplates(["HomeView", "ContactView", "ShellView", "EmployeeView", "EmployeeSummaryView", "EmployeeListItemView", "EmployeeListItemViewTab", "EmployeeListItemEditTab", "TelekomListItemViewTab", "TelekomListItemEditTab"],
         function () {
             directory.router = new directory.Router();
             Backbone.history.start();

@@ -41,3 +41,24 @@ directory.EmployeeCollectionTab = Backbone.Collection.extend({
 //    url:"http://localhost:3000/employees"
 
 });
+
+directory.Telekom = Backbone.Model.extend({
+
+    urlRoot:"/dir/directory-rest-php/telekom",
+//    urlRoot:"http://localhost:3000/employees",
+
+    // initialize:function () {
+        // this.reports = new directory.EmployeeCollection();
+        // this.reports.url = this.urlRoot + "/" + this.id + "/reports";
+    // }
+
+});
+
+directory.TelekomCollection = Backbone.Collection.extend({
+
+    model: directory.Telekom,
+
+    url:"/dir/directory-rest-php/telekom"
+//    url:"http://localhost:3000/employees"
+
+});

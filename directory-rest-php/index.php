@@ -13,6 +13,11 @@ $app->delete('/employees/:id',	'delEmployee');
 $app->put('/employees/:id', 'updateEmployee');
 $app->post('/employees', 'addEmployee');
 
+// Pracownicy PSE Centrum ZT
+$app->get('/telekom', 'getTelekoms');
+$app->get('/telekom/:id', 'getEmployee');
+$app->put('/telekom/:id', 'updateEmployee');
+
 $app->run();
 
 function getEmployees() {
@@ -29,6 +34,7 @@ function getEmployees() {
 
     $sql = "select e.id, e.firstName, e.lastName, e.department, e.city, e.title, e.officePhone, e.cellPhone, e.email, e.tags, count(r.id) reportCount " .
             "from employee e left join employee r on r.managerId = e.id " .
+			'where not e.department LIKE "PSE Centrum" ' .
             "group by e.id order by e.tags";
     try {
         $db = getConnection();
@@ -106,6 +112,7 @@ function getEmployeesByName($name) {
     $sql = "select e.id, e.firstName, e.lastName, e.department, e.city,  e.title, e.officePhone, e.cellPhone, e.email, e.tags, count(r.id) reportCount " .
             "from employee e left join employee r on r.managerId = e.id " .
             "WHERE UPPER(CONCAT(e.firstName, ' ', e.lastName)) LIKE :name " .
+			'AND not e.department LIKE "PSE Centrum" ' .
             "group by e.id order by e.tags";
     try {
         $db = getConnection();
@@ -255,6 +262,31 @@ function delEmployee($id) {
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}
+}
+
+function getTelekoms() {
+
+    $sql = "select e.id, e.firstName, e.lastName, e.department, e.city, e.title, e.officePhone, e.cellPhone, e.email, e.tags, count(r.id) reportCount " .
+            "from employee e left join employee r on r.managerId = e.id " .
+			'where e.department LIKE "PSE Centrum" ' .
+            "group by e.id order by e.lastName";
+    try {
+        $db = getConnection();
+        $stmt = $db->query($sql);
+        $employees = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $db = null;
+
+        // Include support for JSONP requests
+        if (!isset($_GET['callback'])) {
+            echo json_encode($employees);
+        } else {
+            echo $_GET['callback'] . '(' . json_encode($employees) . ');';
+        }
+
+    } catch(PDOException $e) {
+        echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
+    //echo "go";
 }
 
 function getConnection() {
