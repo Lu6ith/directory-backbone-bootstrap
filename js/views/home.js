@@ -123,14 +123,17 @@
 	
 	createItem: function () {
 		//$('.homediv').html('');
+		$('#myModal3 #department').val('').removeAttr('disabled');
+		$('#myModal3 #city').val('').removeAttr('disabled');
+		$('#myModal3 #tags').val('').removeAttr('disabled');
 		$('#myModal3').modal('show');
 	},
 	
 	createItemT: function () {
 		//$('.homediv').html('');
-		$('#department').val('PSE Centrum').attr('disabled', 'disabled');
-		$('#city').val('Warszawa').attr('disabled', 'disabled');
-		$('#tags').val('PSEC - ZT').attr('disabled', 'disabled');
+		$('#myModal3 #department').val('PSE Centrum').attr('disabled', 'disabled');
+		$('#myModal3 #city').val('Warszawa').attr('disabled', 'disabled');
+		$('#myModal3 #tags').val('PSEC - ZT').attr('disabled', 'disabled');
 		$('#myModal3').modal('show');
 	},
 	

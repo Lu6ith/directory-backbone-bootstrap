@@ -62,3 +62,24 @@ directory.TelekomCollection = Backbone.Collection.extend({
 //    url:"http://localhost:3000/employees"
 
 });
+
+directory.Dyzury = Backbone.Model.extend({
+
+    urlRoot:"/dir/directory-rest-php/dyzury",
+//    urlRoot:"http://localhost:3000/employees",
+
+    // initialize:function () {
+        // this.reports = new directory.EmployeeCollection();
+        // this.reports.url = this.urlRoot + "/" + this.id + "/reports";
+    // }
+
+});
+
+directory.DyzuryCollection = Backbone.Collection.extend({
+
+    model: directory.Dyzury,
+	
+    url: "/dir/directory-rest-php/dyzury"
+//    url:"http://localhost:3000/employees"
+
+});

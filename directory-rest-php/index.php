@@ -18,6 +18,12 @@ $app->get('/telekom', 'getTelekoms');
 $app->get('/telekom/:id', 'getEmployee');
 $app->put('/telekom/:id', 'updateEmployee');
 
+// Dyzury PSE Centrum ZT
+$app->get('/dyzury', 'getDyzury');
+$app->get('/dyzury/:idem', 'getEmpDyzury');
+//$app->put('/dyzury/:idem', 'updateEmpDyzury');
+$app->post('/dyzury', 'addDyzury');
+
 $app->run();
 
 function getEmployees() {
@@ -139,7 +145,7 @@ function getEmployeesByTags($tags) {
     $sql = "select e.id, e.firstName, e.lastName, e.department, e.city, e.title, e.officePhone, e.cellPhone, e.email, e.tags, count(r.id) reportCount " .
             "from employee e left join employee r on r.managerId = e.id " .
             "WHERE UPPER(e.tags) LIKE :tags " .
-            "group by e.id order by e.lastName, e.firstName";
+            "group by e.id order by e.lastName, e.firstName collate utf8_polish_ci";
     try {
         $db = getConnection();
         $stmt = $db->prepare($sql);
@@ -266,9 +272,12 @@ function delEmployee($id) {
 
 function getTelekoms() {
 
-    $sql = "select e.id, e.firstName, e.lastName, e.department, e.city, e.title, e.officePhone, e.cellPhone, e.email, e.tags, count(r.id) reportCount " .
-            "from employee e left join employee r on r.managerId = e.id " .
+    $sql = "select e.id, e.firstName, e.lastName, e.department, e.city, e.title, e.officePhone, e.cellPhone, e.email, e.tags, count(r.id) reportCount, d.datapocz, d.datakonc, d.grupa " .
+            "from employee e ".
+			"left join employee r on r.managerId = e.id " .
+			"left join dyzury d on d.idem = e.id AND d.datapocz <= CURDATE() AND d.datakonc > CURDATE() ".
 			'where e.department LIKE "PSE Centrum" ' .
+			//"AND d.datapocz <= CURDATE() AND d.datakonc > CURDATE() " .
             "group by e.id order by e.lastName";
     try {
         $db = getConnection();
@@ -287,6 +296,83 @@ function getTelekoms() {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
     //echo "go";
+}
+
+function getDyzury() {
+
+    $sql = "select e.id, e.idem, e.datapocz, e.datakonc, e.grupa " .
+            "from dyzury e ".
+            "order by e.idem, e.datapocz";
+    try {
+        $db = getConnection();
+        $stmt = $db->query($sql);
+        $employees = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $db = null;
+
+        // Include support for JSONP requests
+        if (!isset($_GET['callback'])) {
+            echo json_encode($employees);
+        } else {
+            echo $_GET['callback'] . '(' . json_encode($employees) . ');';
+        }
+
+    } catch(PDOException $e) {
+        echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
+    //echo "go";
+}
+
+function getEmpDyzury($idem) {
+
+    $sql = "select e.id, e.idem, e.datapocz, e.datakonc, e.grupa " .
+            "from dyzury e " .
+            "where e.idem = :idem";
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam("idem", $idem);
+        $stmt->execute();
+        $employees = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $db = null;
+
+        // Include support for JSONP requests
+        if (!isset($_GET['callback'])) {
+            echo json_encode($employees);
+        } else {
+            echo $_GET['callback'] . '(' . json_encode($employees) . ');';
+        }
+
+    } catch(PDOException $e) {
+        echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
+    //echo "go";
+}
+
+function addDyzury() {
+	//error_log('addContact\n', 3, '/var/tmp/php.log');
+	$request = Slim::getInstance()->request();
+	$wine = json_decode($request->getBody());
+	$sql = "INSERT INTO dyzury (idem, datapocz, datakonc, grupa) VALUES (:idem, :datapocz, :datakonc, :grupa)";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);  
+		$stmt->bindParam("idem", $wine->idem);
+		$stmt->bindParam("datapocz", $wine->datapocz);
+		$stmt->bindParam("datakonc", $wine->datakonc);
+		$stmt->bindParam("grupa", $wine->grupa);
+		$stmt->execute();
+		$wine->id = $db->lastInsertId();
+		$db = null;
+		//$app->response()->header('Content-Type', 'application/json');
+        if (!isset($_GET['callback'])) {
+            echo json_encode($wine);
+        } else {
+            echo $_GET['callback'] . '(' . json_encode($wine) . ');';
+        };
+	} catch(PDOException $e) {
+		//error_log($e->getMessage(), 3, '/var/tmp/php.log');
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
 }
 
 function getConnection() {

@@ -1,22 +1,22 @@
-﻿directory.TelekomListViewTab = Backbone.View.extend({
+﻿directory.DyzuryListViewTab = Backbone.View.extend({
 
     tagName:"tbody",
 
     initialize:function () {
         var self = this;
-		console.log("TelekomViewTab");
+		console.log("DyzuryViewTab");
         this.model.on("reset", this.render, this);
 		//this.model.on("remove", this.deleteEmployee, this);
-        this.model.on("add", function (telekom) {
-            self.$el.append(new directory.TelekomListItemViewTab({model:telekom}).render().el);
-			console.log('Dodano telekomItemViewTab !');
+        this.model.on("add", function (dyzury) {
+            self.$el.append(new directory.DyzuryListItemViewTab({model:dyzury}).render().el);
+			console.log('Dodano DyzuryItemViewTab !');
         });
     },
 
     render:function () {
         this.$el.empty();
-        _.each(this.model.models, function (telekom) {
-            this.$el.append(new directory.TelekomListItemViewTab({model:telekom}).render().el);
+        _.each(this.model.models, function (dyzury) {
+            this.$el.append(new directory.DyzuryListItemViewTab({model:dyzury}).render().el);
 			//console.log("ListViewTab render item - " + tagstab[licz]);
         }, this);
         return this;
@@ -24,16 +24,15 @@
 	
 });
 
-directory.TelekomListItemViewTab = Backbone.View.extend({
+directory.DyzuryListItemViewTab = Backbone.View.extend({
 
     tagName:"tr",
 
 	tagColor: "label",
 	
 	events: {
-		"click a.delete":"deleteTelekom",
-		"click a.editme":"editTelekom",
-		"click a.editdyzur":"editDyzur"		
+		"click a.delete":"deleteDyzur"
+		//"click a.editme":"editDyzur"
 	},
 	
     initialize:function () {
@@ -50,8 +49,8 @@ directory.TelekomListItemViewTab = Backbone.View.extend({
         return this;
     },
 	
-	deleteTelekom:function () {
-	    var answer = confirm("Czy na pewno chcesz usunąć te osobę ?" + this.model.id);
+	deleteDyzur:function () {
+	    var answer = confirm("Czy na pewno chcesz usunąć ten dyżur ?" + this.model.id);
 		if (answer) {
 	
 			this.model.destroy();
@@ -60,43 +59,15 @@ directory.TelekomListItemViewTab = Backbone.View.extend({
 		return false;	
 	},
 	
-	editTelekom:function () {
+/*	editDyzur:function () {
 	    //this.$el.html(this.editTemplate(this.model.toJSON()));
 		//console.log('Odpalone editme !');
 		$('.homediv').html('');
 		$('.homediv').append(new directory.TelekomListItemEditTab({model:this.model}).render().el);
-		$('#myModal2').modal('show');
+		$('#myModal4').modal('show');
 		return false;
-	},
+	}, */
 	
-    editDyzur:function () {
-		//var key = $('#searchText').val();
-		$('.tab-dyzury').html(
-		'<thead class="info"><tr class="blue"><th>#</th><th>Data od</th><th>Data do</th><th>Grupa</th><th style="width: 54px;"></th></tr></thead>');
-		$('#myModal4 #myModalLabel').html('Dyżury -- ' + this.model.get('firstName') + ' ' +this.model.get('lastName'));
-		this.searchResultsDyzury = new directory.DyzuryCollection();
-		this.searchResultsDyzury.url = this.searchResultsDyzury.url + "/" + this.model.id;
-		this.searchResultsViewDyzury = new directory.DyzuryListViewTab({model: this.searchResultsDyzury, className: 'table-list'});
-        this.searchResultsDyzury.fetch({
-			reset: true, 
-			//data: {idem: this.model.id},
-			success: function() {
-				//alert("No error!");
-				console.log('Success Dyzury');
-				//this.createSelect();
-				//directory.homelView.createSelect();
-				$('#myModal4').modal('show');
-			},
-			error: function() {
-				alert("error!");
-			}
-		});
-		$('.tab-dyzury').append(this.searchResultsViewDyzury.render().el);
-		//console.log('Kolekcja Tab - ' + JSON.stringify(this.getUniqTags()));
-		var self = this;
-		//this.createSelect();
-    },
-
     cancelEdit: function () {
 		console.log('wcisnieto cancel !');
         this.render();
@@ -104,6 +75,7 @@ directory.TelekomListItemViewTab = Backbone.View.extend({
 	
 });
 
+/*
 directory.TelekomListItemEditTab = Backbone.View.extend({
 
 	//className:'homediv',
@@ -173,4 +145,4 @@ directory.TelekomListItemEditTab = Backbone.View.extend({
 		return false;
     }
 	
-});	
+});	*/

@@ -94,7 +94,7 @@ directory.Router = Backbone.Router.extend({
 });
 
 $(document).on("ready", function () {
-    directory.loadTemplates(["HomeView", "ContactView", "ShellView", "EmployeeView", "EmployeeSummaryView", "EmployeeListItemView", "EmployeeListItemViewTab", "EmployeeListItemEditTab", "TelekomListItemViewTab", "TelekomListItemEditTab"],
+    directory.loadTemplates(["HomeView", "ContactView", "ShellView", "EmployeeView", "EmployeeSummaryView", "EmployeeListItemView", "EmployeeListItemViewTab", "EmployeeListItemEditTab", "TelekomListItemViewTab", "TelekomListItemEditTab", "DyzuryListItemViewTab"],
         function () {
             directory.router = new directory.Router();
             Backbone.history.start();

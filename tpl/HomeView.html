@@ -71,9 +71,9 @@
 		</div>
 		
 		<div class="tab-pane" id="dlist">
-		<h3>Lista dyżurów </h3>
+		<h3>Lista dyżurów pracowników </h3>
 		<div class="btn-toolbar">
-			<button id="newempd" class="btn btn-primary"><i class="cus-user_add"></i>Nowy dyżur</button>
+			<button id="newempd" class="btn btn-primary"><i class="cus-user_add"></i>Nowy pracownik</button>
 			<button id="impDird" class="btn"><i class="cus-database_add"></i>Wczytaj</button>
 			<button id="drukempd" class="btn disabled"><i class="cus-printer"></i>Drukuj</button>
 			<!-- <div class="btn-group dropdown">
@@ -91,14 +91,15 @@
 				<thead class="info">
 				  <tr class="blue">
 					<th>#</th>
-					<th>Nazwisko</th>
-					<th>Imię</th>
-					<th>Firma</th>
+					<th>Nazwisko Imię</th>
+					<th>Dyżur od</th>
+					<th>Dyżur do</th>
+					<th>Grupa</th>
 					<th>Email</th>
 					<th>Tel. stac.</th>
 					<th>Tel. kom.</th>
 					<th>Grupa</th>
-					<th style="width: 36px;"></th>
+					<th style="width: 54px;"></th>
 				  </tr>
 				</thead>
 <!-- 			    <tbody>
@@ -147,21 +148,39 @@
 				<div id="myTabContent" class="tab-content">
 					<div class="tab-pane active in homediv" id="home" >
 					</div>
-						<!-- <div class="tab-pane fade" id="profile">
-						<form id="tab2">
-							<label>Nowe hasło</label>
-							<input type="password" class="input-xlarge">
-							<div>
-								<button class="btn btn-primary">Update</button>
-							</div>
-						</form>
-						</div> -->				
 				</div>
 		    </div>
 		  <!-- <div class="modal-footer">
 			<button class="btn canceledit" data-dismiss="modal" aria-hidden="true">Cofnij</button>
 			<button class="btn btn-danger saveedit" data-dismiss="modal">Potwierdź</button>
 		  </div> -->
+		  </div>
+		</div>
+
+		<div class="modal hide fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Dyżury pracownika: </h3>
+		  </div>
+		  <div class="modal-body">
+			<div class="well well-small">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#home" data-toggle="tab">Wykaz dyżurów</a></li>
+				</ul>
+				<div id="myTabContent" class="tab-content">
+					<div class="tab-pane active in homediv" id="home" >
+						<table class="tab-dyzury table table-hover table-bordered table-striped table-condensed">
+					<!--    <tbody>
+							</tbody> -->
+						</table>
+					
+					</div>
+				</div>
+		    </div>
+		    <div class="modal-footer">
+				<button class="btn canceledit" data-dismiss="modal" aria-hidden="true">Cofnij</button>
+				<button class="btn btn-danger saveedit" data-dismiss="modal">OK</button>
+		    </div>
 		  </div>
 		</div>
 
